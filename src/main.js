@@ -10,8 +10,6 @@ const INITIAL_SESSION = {
     messages: []
 }
 
-console.log(config.get('TEST_ENV'))
-
 const bot = new Telegraf(config.get("TELEGRAM_TOKEN"))
 
 bot.use(session())
@@ -53,7 +51,7 @@ bot.on(message('text'), async (ctx) => {
     try {
         await ctx.reply(code('Жду ответ от сервера'))
         ctx.session.messages.push({"role": openai.roles.USER, "content": ctx.message.text})
-        console.log(ctx, 'ctx')
+
         const response = await openai.chat(ctx.session.messages)
 
         ctx.session.messages.push({"role": openai.roles.ASSISTANT, "content": response.content})
@@ -64,7 +62,6 @@ bot.on(message('text'), async (ctx) => {
     }
 
 })
-
 
 
 bot.launch()
