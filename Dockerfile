@@ -4,9 +4,9 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci
-
 COPY ./ ./
+
+RUN npm ci
 
 ENV PORT=3000
 
